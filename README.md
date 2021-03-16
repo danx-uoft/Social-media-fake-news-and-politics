@@ -1,4 +1,4 @@
-# Social-Media-and-Fake-News-in-the-2016-Election_reproduction-project
+# Social media and fake news
 Social Media and Fake News in the 2016 Election_reproducibility project 
 
 This project is a reproducibility of Hunt Allcott and Matthew Gentzkow's article titled "Social Media and Fake News in the 2016
