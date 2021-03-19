@@ -1,0 +1,74 @@
+---
+title: "Allcott & Gentzkow （2017）"
+author: "Dan Xu"
+date: "3/16/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Import dataset
+```{r}
+# library("reticulate")
+# import("pandas")
+# 
+# # Set the path to the Python executable file
+# use_python("/opt/anaconda3/bin/python", required = T)
+# 
+# # config <- system2(command = python, args = paste0('"', config_script, '"'), stdout = TRUE, stderr=T)
+# 
+# # Check the version of Python.
+# py_config()
+```
+
+```{r}
+# import pandas as pd
+# 
+# def main():
+#     measures   = ['Traffic_Sources',
+#                   'Monthly_Visits']
+#     categories = {'News': 50,
+#                   'News_Newspapers': 21,
+#                   'Society_Politics': 20,
+#                   'fake': 13}
+# 
+#     
+#         for category in categories.keys():
+#         for measure in measures:
+#             data = pd.DataFrame()
+#             for num in range(categories[category]):
+#                 new = initialize_data('source/raw/Alexa/%s/%s_%s.csv' %(category, measure, num + 1), category)
+#                 data = data.append(new)
+#             data.to_csv('output/data/Alexa/%s_%s.txt' %(category, measure),
+#               sep = '|', header = True, index = True, index_label = 'mother')
+# 
+# def initialize_data(infile, category):
+#     data = pd.read_csv(infile, sep = ',', skiprows = range(0, 6), header = 0)
+#     data.set_index('Metric', inplace = True)
+#     data.drop('Date', axis = 1, inplace = True)
+#     data.index.name = None
+#     data = data.transpose()
+#     data['category'] = category
+#     return data
+# 
+# main()
+```
+# Abstract 
+
+In the theoretical framework of the economics of fake news,Hunt Allcott and Matthew Gentzkow (2017) conducted a survey and disvovered 
+
+we confirm that fake news was both widely shared and heavily tilted
+in favor of Donald Trump. Our database contains 115 pro-Trump fake stories that
+were shared on Facebook a total of 30 million times, and 41 pro-Clinton fake stories
+shared a total of 7.6 million times.
+
+
+# Intro 
+Survey 
+congragate data 
+
+# EDA
+
+
