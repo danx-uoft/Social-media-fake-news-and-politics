@@ -55,6 +55,49 @@ Import dataset
 # 
 # main()
 ```
+
+Load libraries 
+```{r}
+library(ggplot2)
+library(tidyverse)
+library(forcats)  # recoding
+library(psych)  # testing for internal consistency
+```
+
+Save the post_stratification survey as a .rData file
+```{r}
+ Survey <- read.csv("/Users/dans/Documents/Github/Social_media_fake_news/Inputs/Data/113992-V1/election-media-JEP-replication/source/raw/Inputs/Data/PostElectionSurvey/Sheet_1.csv",header = TRUE, sep = ",", encoding = "UTF-16")
+```
+
+Clean the dataset
+```{r}
+Survey_clean <-
+  Survey[, -c(1:9)]
+```
+glimpse at the data
+```{r}
+glimpse(Survey_clean) #messey, needs rename and recode 
+```
+
+```{r}
+extra_colnames <- names(Survey_clean)  # save names in this vector
+
+names(Survey_clean)[3:65] <- paste("i", formatC(1:63, width = 2, flag = "0"), sep = "") 
+```
+The first two columns do not relate to the survey content, remove. 
+
+
+```{r}
+ saveRDS(Survey, file = "/Users/dans/Documents/Github/Social_media_fake_news/Inputs/Data/113992-V1/election-media-JEP-replication/source/raw/Inputs/Data/PostElectionSurvey/survey.rData")
+```
+
+Load the survey
+```{r}
+survey <- load("/Users/dans/Documents/Github/Social_media_fake_news/Inputs/Data/113992-V1/election-media-JEP-replication/source/raw/Inputs/Data/PostElectionSurvey/survey.rData")
+
+```
+
+
 # Abstract 
 
 In the theoretical framework of the economics of fake news,Hunt Allcott and Matthew Gentzkow (2017) conducted a survey and disvovered 
@@ -69,6 +112,9 @@ shared a total of 7.6 million times.
 Survey 
 congragate data 
 
-# EDA
+# EDA 
+
+
+
 
 
