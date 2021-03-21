@@ -62,6 +62,8 @@ library(ggplot2)
 library(tidyverse)
 library(forcats)  # recoding
 library(psych)  # testing for internal consistency
+library(ggpubr)
+theme_set(theme_pubr())
 ```
 
 Save the post_stratification survey as a .rData file
@@ -79,15 +81,231 @@ glimpse at the data
 glimpse(Survey_clean) #messey, needs rename and recode 
 ```
 
+Rename cols/variables
 ```{r}
-extra_colnames <- names(Survey_clean)  # save names in this vector
-
-names(Survey_clean)[3:65] <- paste("i", formatC(1:63, width = 2, flag = "0"), sep = "") 
+names(Survey_clean)[1] <- "consent"
+names(Survey_clean)[2] <- "Honesty"
 ```
-The first two columns do not relate to the survey content, remove. 
+How often do you get news from the following channels. 
+```{r}
+names(Survey_clean)[3] <- "News_socialmedia"
+names(Survey_clean)[4] <- "News_web/app"
+
+
+ggplot(Survey_clean, aes(News_socialmedia)) +
+  geom_bar(fill = "#0073C2FF") +
+  theme_pubclean() 
+
+
+longer_survey_socialmedia <- 
+  Survey_clean %>% 
+  select(News_socialmedia,`News_web/app`) %>% 
+  pivot_longer(`News_socialmedia`:`News_web/app`, names_to = "question", values_to = "response")
+print(longer_survey_socialmedia)
+
+longer_survey_socialmedia %>% 
+  na.omit() %>% 
+ggplot(aes(x = response,fill = question)) +
+  geom_bar() +
+  facet_wrap(vars(question), ncol = 3) +
+  labs(x = "Response (on a 1 to 4 scale)", y = "Number of respondents")
+
+
+```
+
+Clear column names_demographic questions 
+```{r}
+colnames(Survey_clean)[grep("What.is.your.age.", colnames(Survey_clean))] <-"age"
+colnames(Survey_clean)[grep("What.is.your.gender.", colnames(Survey_clean))] <-"gender"
+colnames(Survey_clean)[grep("Which.race.ethnicity.best.describes.you", colnames(Survey_clean))] <-"ethnicity"
+colnames(Survey_clean)[grep("How.much.total.combined.money.did.all.members.of.your.HOUSEHOLD.earn.last.year.", colnames(Survey_clean))] <-"income"
+colnames(Survey_clean)[grep("What.is.the.highest.degree.or.level.of.school.you.have.completed.", colnames(Survey_clean))] <-"education"
+colnames(Survey_clean)[grep("Device.Types", colnames(Survey_clean))] <-"device_type"
+colnames(Survey_clean)[grep("In.what.ZIP.code.is.your.home.located", colnames(Survey_clean))] <-"zipcode"
+```
+
+
+Partisanship
+```{r}
+colnames(Survey_clean)[grep("Before.the.2016.election..did.you.consider.yourself.a.Republican..a.Democrat..an.Independent..or.what." , colnames(Survey_clean))] <-"partyid"
+```
+
+Plots demographic information 
+```{r}
+
+longer_survey_demographic <- 
+  Survey_clean %>% 
+  select(partyid, education,ethnicity,age:income) %>% 
+  pivot_longer(partyid:income, names_to = "question", values_to = "response")
+print(longer_survey_demographic)
+
+longer_survey_demographic %>% 
+  na.omit() %>% 
+ggplot(aes(x = response,fill = question)) +
+  geom_bar() +
+  facet_wrap(vars(question), ncol = 3) +
+  labs(x = "Response", y = "Number of respondents")
+
+# describe(longer_survey_demographic$income)
+
+```
 
 
 
+
+
+Voting behavior
+```{r}
+colnames(Survey_clean)[grep("Who.did.you.vote.for.in.the.2016.presidential.election.", colnames(Survey_clean))] <-"vote_who"
+colnames(Survey_clean)[grep("When.did.you.make.up.your.mind.about.who.to.vote.for.", colnames(Survey_clean))] <-"vote_when"
+```
+
+Social media usage
+```{r}
+colnames(Survey_clean)[grep("In.this.survey..we.ll.ask.you.about..social.media...by.which.we.mean.Facebook..Twitter..YouTube..Reddit..and.the.like..Do.you.ever.use.social.media."  , colnames(Survey_clean))] <-"social_media_often"
+
+colnames(Survey_clean)[grep("Think.about.your.network.of.online..friends..and.other.people.you.follow.or.interact.with.on.social.media.", colnames(Survey_clean))] <-"social_media_preferred"
+
+# Think about your network of online "friends" and other people you follow or
+# interact with on social media.¬†What share of them do you think¬†preferred the
+# same presidential candidate as you?
+
+
+colnames(Survey_clean)[grep("hink.about.the.month.leading.up.to.the.2016.election..On.average..how.many.minutes.per.day.would.you.say.you.spent.reading", colnames(Survey_clean))] <-"news_mmins"
+
+colnames(Survey_clean)[grep( "Of.those.minutes..how.many.were.spent.reading..watching..or.listening.to.election.news.on.social.media.", colnames(Survey_clean))] <-"news_mmins_social"
+
+colnames(Survey_clean)[grep( "Which.of.those.sources.was.your..strong.most.important..strong..source.of.news.and.information.about.the.2016.election."  , colnames(Survey_clean))] <-"news_source"
+```
+
+Pope.Francis endorsement 
+```{r}
+colnames(Survey_clean)[grep( "X.Pope.Francis.endorsed.Donald.Trump..", colnames(Survey_clean))] <-"Francis" #Question Viewed
+names(Survey_clean)[17] <- "Francis1"
+levels(as.factor(Survey_clean$Francis)) #Do you recall seeing this reported or discussed¬†prior to the election?
+
+
+# At the time of the election, would your best guess have been that this
+# statement was true?
+names(Survey_clean)[18] <- "Francis_endorsement"
+
+```
+Clinton illegal arms
+```{r}
+names(Survey_clean)[19] <- "Cliton_question" #Question Viewed
+names(Survey_clean)[20] <- "Cliton_arms" #Do you recall seeing this reported or discussed¬†prior to the election?
+levels(as.factor(Survey_clean$Cliton_question)) 
+levels(as.factor(Survey_clean$Cliton_arms)) 
+names(Survey_clean)[21] <- "Cliton_true" #At the time of the election, would your best guess have been that this statement was true?
+
+```
+
+Ireland accepts asylum under Trump presidency
+```{r}
+names(Survey_clean)[22] <- "Ireland_question" #Question Viewed
+names(Survey_clean)[23] <- "Ireland_asylum"#Do you recall seeing this reported or discussed¬†prior to the election?
+names(Survey_clean)[24] <- "Ireland_true"
+```
+
+ the FBI uncovered evidence of a pedophile sex ring
+ 
+```{r}
+names(Survey_clean)[25] <- "FBI_question" #Question Viewed
+names(Survey_clean)[26] <- "FBI_Clinton"#Do you recall seeing this reported or discussed¬†prior to the election?
+names(Survey_clean)[27] <- "FBI_true"
+```
+FBI director 
+```{r}
+names(Survey_clean)[28] <- "Comey_question" #Question Viewed
+names(Survey_clean)[29] <- "Comey_invsetigation"#Do you recall seeing this reported or discussed¬†prior to the election?
+names(Survey_clean)[30] <- "Comey_true"
+```
+
+Trump tax plan 
+```{r}
+names(Survey_clean)[31] <- "tax_question"
+names(Survey_clean)[32] <- "tax_Trump"
+names(Survey_clean)[33] <- "tax_true"
+```
+
+Clinton paied Beyonce and J.Z.
+```{r}
+names(Survey_clean)[34] <- "Beyonce_question"
+names(Survey_clean)[35] <- "Beyonce_Clinton"
+names(Survey_clean)[36] <- "Beyonce_true"
+```
+
+Trump deported Mirada
+```{r}
+names(Survey_clean)[37] <- "Miranda_question"
+names(Survey_clean)[38] <- "Miranda_deported"
+names(Survey_clean)[39] <- "Miranda_true"
+```
+
+illary.Clinton.s.first.name.was.spelled.with.an.extra..i
+```{r}
+names(Survey_clean)[40] <- "spelled_question"
+names(Survey_clean)[41] <- "spelled_Clinton"
+names(Survey_clean)[42] <- "spelled_true"
+```
+
+Clinton campaign planed a scheme by taking Republican voters to a wrong place
+```{r}
+names(Survey_clean)[43] <- "scheme_question"
+names(Survey_clean)[44] <- "scheme_Clinton"
+names(Survey_clean)[45] <- "schme_true"
+```
+FBI director Comey communited with Clinton about email releaase
+```{r}
+names(Survey_clean)[46] <- "email_question"
+names(Survey_clean)[47] <- "email_Clinton"
+names(Survey_clean)[48] <- "email_true"
+```
+
+Clinton deviates funds 
+```{r}
+names(Survey_clean)[49] <- "funds_question"
+names(Survey_clean)[50] <- "funds_Clinton"
+names(Survey_clean)[51] <- "funds_true"
+```
+
+Clinton said Trump supporters deplorables
+```{r}
+names(Survey_clean)[52] <- "deplorables_question"
+names(Survey_clean)[53] <- "deplorables_Clinton"
+names(Survey_clean)[54] <- "deplorables_true"
+```
+
+Donald.Trump.refused.to.say.whether.he.would.concede.the.election.if.he.lost
+```{r}
+names(Survey_clean)[55] <- "lost_question"
+names(Survey_clean)[56] <- "lost_Trump"
+names(Survey_clean)[57] <- "lost_true"
+```
+
+Beyonce.and.Jay.Z.appeared.at.a.rally.in.support.of.Hillary.Clinton
+```{r}
+names(Survey_clean)[58] <- "support_question"
+names(Survey_clean)[59] <- "support_Clinton"
+names(Survey_clean)[60] <- "support_true"
+```
+
+
+
+```{r}
+# extra_colnames <- names(Survey_clean)  # save names in this vector
+# 
+# names(Survey_clean)[3:65] <- paste("i", formatC(1:63, width = 2, flag = "0"), sep = "") 
+```
+
+
+
+How did you vote for in 2016
+
+```{r}
+
+```
+The plots show that 
 
 
 
