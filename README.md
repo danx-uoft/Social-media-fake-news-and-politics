@@ -6,10 +6,11 @@ Election."
 [Link to the article](https://pubs.aeaweb.org/doi/pdfplus/10.1257/jep.31.2.211?source=post_page---------------------------)
 
 # Abstract
-This paper is a replication of Hunt Allcott and Matthew Gentzkow's(2017) research on fake news in the 2016 U.S. election. 
+This paper is a replication of Hunt Allcott and Matthew Gentzkow's(2017) research on fake news in the 2016 U.S. election. By analyzing a post-election survey and a database of fake news articles, the authors examined how fake news is produced and consumed, and its relationship with social media. Their results suggest that fake news could have been more effective if it was as persuasive as TV commercials; the influence on Trump's vote share was marginal if such voters had been previously exposed to the fake news. 14 percent of the survey respondents identifed "social media" as their primary information source, indicating the social media has become an important source for political information, which leads to the fast spread of fake news. They also pointed out that their unweighted sample is disproportionately "well-educated, female, and Caucasian, and those who rely relatively heavily on the web and social media for news."
 
 # Intro 
 In the context of 2016 U.S. presidential election, Allcott and Gentzkow (2017) surveyed 1200 respondents. They found that fake news was disproportionally in favor of Donald Trump. 
+
 
 # Data 
 [Link to the dataset](https://www.openicpsr.org/openicpsr/project/113992/version/V1/view)
