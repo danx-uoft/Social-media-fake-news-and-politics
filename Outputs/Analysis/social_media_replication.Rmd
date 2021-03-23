@@ -565,7 +565,7 @@ ggsave(path = "/Users/dans/Documents/Github/Social_media_fake_news/Outputs/Plots
 
 ``` 
 
-# Figure 2
+Figure 2
 Trends Related to Fake News
 
 
@@ -582,8 +582,6 @@ How do they weight the survey?
 by monthly visits
 
 
-# Survey 
-analyse the original survey 
 
 # references 
 
