@@ -20,5 +20,6 @@ To begin with, this paper conducted some exploratory data analysis with the post
 3. Fake news stories about Hilary Clinton
 
 # Notes 
-Commit and push 
+cannot Commit and push 
+cnanot knit to pdf due to tex?
 
