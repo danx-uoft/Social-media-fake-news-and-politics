@@ -1,0 +1,15 @@
+year|poll|theory|believe
+1963|NORC|President John F. Kennedy was assassinated by some Communist or other radical|28
+1963|NORC|President John F. Kennedy was assassinated by a segregationist or extreme right-winger|18
+2003|Gallup|Lyndon Johnson was involved in the assassination of John F. Kennedy in 1963|18
+1991|Gallup|President Franklin D. Roosevelt knew about Japanese plans to bomb Pearl Harbor but did nothing about it|31
+1994|CBS News|The Nazi extermination of millions of Jews did not take place|3
+1975|Harris|The Assassination of Martin Luther King was the act of part of a large conspiracy|60
+1995|Yankelovich_CNN_Time|Government agents deliberately set the fire in which the Branch Davidians died|14
+1995|Yankelovich_CNN_Time|The former aide to President Bill Clinton, Vincent Foster, was murdered|20
+1995|Yankelovich_CNN_Time|The federal government bombed the federal government building in Oklahoma City in order to blame extremist groups|4
+1999|Gallup|The crash of TWA Flight 800 over Long Island was an accidental strike by a US Navy missile|14
+2007|Zogby_9-11Truth|Certain elements in the US government knew the attacks were coming but consciously let them proceed|26
+2007|Zogby_9-11Truth|certain US government elements actively planned or assisted some aspects of the attacks|5
+2003|PSRA_Newsweek|The Bush administration purposely misled the public about evidence that Iraq had banned weapons in order to build support for war|36
+2010|Wash Post_ABC|Barack Obama was born in another country|14
